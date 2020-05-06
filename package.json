@@ -1,5 +1,5 @@
 {
-  "name": "test-starnavi",
+  "name": "react-hook",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -44,6 +44,10 @@
       "npm run eslint-fix --max-warnings=0",
       "git add"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AShoful/reactHook.git"
   },
   "browserslist": {
     "production": [
