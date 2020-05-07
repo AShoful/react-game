@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -37,7 +38,7 @@ function FildGame({ currentIndex, isPlay, setWinner, filds, delay }) {
     onTimer(() => {
       changeColorCell(currentIndex, 'red');
     });
-  }, [currentIndex, onTimer]);
+  }, [currentIndex]);
 
   useEffect(() => {
     const user = checkWinner('green', randomCeil);
