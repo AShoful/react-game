@@ -10,7 +10,7 @@ import './App.css';
 
 function App() {
   const filds = 3;
-  const delay = 1000;
+  const delay = 2000;
 
   const [mainState, setMainState] = useState({
     buttonName: 'Play',
@@ -20,7 +20,7 @@ function App() {
   });
 
   const [winner, setWinner] = useState(null);
-  const [option, setOption] = useState(null);
+  const [, setOption] = useState(null);
 
   const intervalRef = useRef(null);
 
@@ -37,7 +37,6 @@ function App() {
 
   useEffect(() => {
     if (winner) {
-      console.log('uEff winner');
       clearInterval(intervalRef.current);
       setMainState((mainState) => {
         const newState = { ...mainState };
@@ -80,7 +79,17 @@ function App() {
       count += 1;
     });
   };
-  console.log(option);
+
+  const handlecancel = () => {
+    clearInterval(intervalRef.current);
+    setMainState((mainState) => {
+      const newState = { ...mainState };
+      newState.isPlay = false;
+      newState.isDisabled = false;
+      return { ...newState };
+    });
+  };
+
   const { isDisabled, currentIndex, isPlay, buttonName } = mainState;
   return (
     <div className="App">
@@ -91,6 +100,9 @@ function App() {
         disabled={isDisabled}
       >
         {buttonName}
+      </button>
+      <button type="button" onClick={handlecancel}>
+        X
       </button>
       {winner && <p> Победил {winner} </p>}
       <FildGame

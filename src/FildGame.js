@@ -24,12 +24,13 @@ function FildGame({ currentIndex, isPlay, setWinner, filds, delay }) {
     });
   };
 
-  const checkWinner = (color, arr) =>
-    arr.filter((i) => i && i === color).length;
+  const checkWinner = (color) =>
+    randomCeil.filter((i) => i && i === color).length;
 
   useEffect(() => {
     if (!isPlay) {
       setRandomCeil([]);
+      clearTimeout(timerRef.current);
     }
   }, [isPlay]);
 
@@ -41,13 +42,11 @@ function FildGame({ currentIndex, isPlay, setWinner, filds, delay }) {
   }, [currentIndex]);
 
   useEffect(() => {
-    const user = checkWinner('green', randomCeil);
-    const computer = checkWinner('red', randomCeil);
-    if (user > filds ** 2 / 2) {
+    if (checkWinner('green') > filds ** 2 / 2) {
       setWinner('player');
       clearTimeout(timerRef.current);
     }
-    if (computer > filds ** 2 / 2) {
+    if (checkWinner('red') > filds ** 2 / 2) {
       setWinner('computer');
       clearTimeout(timerRef.current);
     }

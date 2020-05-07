@@ -4,6 +4,7 @@
   justify-content: center;
   flex-wrap: wrap;
   box-sizing: border-box;
+  cursor: copy;
 }
 .ceil{
   border: 1px solid grey;
