@@ -12,11 +12,18 @@ function App() {
   const filds = 3;
   const delay = 1000;
 
-  const [buttonName, setButtonName] = useState('Play');
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [mainState, setMainState] = useState({
+    buttonName: 'Play',
+    isDisabled: false,
+    isPlay: false,
+    currentIndex: -1
+  });
+
+  // const [buttonName, setButtonName] = useState('Play');
+  // const [isDisabled, setIsDisabled] = useState(false);
   const [winner, setWinner] = useState(null);
-  const [isPlay, setIsPlay] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(-1);
+  // const [isPlay, setIsPlay] = useState(false);
+  // const [currentIndex, setCurrentIndex] = useState(-1);
   const [option, setOption] = useState(null);
 
   const intervalRef = useRef(null);
@@ -36,9 +43,16 @@ function App() {
     if (winner) {
       console.log('uEff winner');
       clearInterval(intervalRef.current);
-      setButtonName('Play again');
-      setIsDisabled(false);
-      setIsPlay(false);
+      setMainState((mainState) => {
+        const newState = { ...mainState };
+        newState.buttonName = 'Play again';
+        newState.isDisabled = false;
+        newState.isPlay = false;
+        return { ...newState };
+      });
+      // setButtonName('Play again');
+      // setIsDisabled(false);
+      // setIsPlay(false);
     }
   }, [winner]);
 
@@ -46,24 +60,41 @@ function App() {
     if (!Array.isArray(arr)) {
       return;
     }
-    if (currentIndex !== -1) {
-      setCurrentIndex(-1);
-      setIsPlay(false);
+    if (mainState.currentIndex !== -1) {
+      setMainState((mainState) => {
+        const newState = { ...mainState };
+        newState.currentIndex = -1;
+        newState.isPlay = false;
+        return { ...newState };
+      });
+      // setCurrentIndex(-1);
+      // setIsPlay(false);
       setWinner(null);
     }
 
-    setIsDisabled(true);
-    setIsPlay(true);
+    setMainState((mainState) => {
+      const newState = { ...mainState };
+      newState.isDisabled = true;
+      newState.isPlay = true;
+      return { ...newState };
+    });
+    // setIsDisabled(true);
+    // setIsPlay(true);
     let count = 0;
     onInterval(() => {
       const index = arr[count];
-      setCurrentIndex(index);
+      setMainState((mainState) => {
+        const newState = { ...mainState };
+        newState.currentIndex = index;
+        return { ...newState };
+      });
+      // setCurrentIndex(index);
       count += 1;
     });
   };
   console.log(option);
   // const { filds: FILD_SIZE, delay } = option.hardMode;
-
+  const { isDisabled, currentIndex, isPlay, buttonName } = mainState;
   return (
     <div className="App">
       <button
