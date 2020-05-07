@@ -19,11 +19,7 @@ function App() {
     currentIndex: -1
   });
 
-  // const [buttonName, setButtonName] = useState('Play');
-  // const [isDisabled, setIsDisabled] = useState(false);
   const [winner, setWinner] = useState(null);
-  // const [isPlay, setIsPlay] = useState(false);
-  // const [currentIndex, setCurrentIndex] = useState(-1);
   const [option, setOption] = useState(null);
 
   const intervalRef = useRef(null);
@@ -50,9 +46,6 @@ function App() {
         newState.isPlay = false;
         return { ...newState };
       });
-      // setButtonName('Play again');
-      // setIsDisabled(false);
-      // setIsPlay(false);
     }
   }, [winner]);
 
@@ -67,8 +60,6 @@ function App() {
         newState.isPlay = false;
         return { ...newState };
       });
-      // setCurrentIndex(-1);
-      // setIsPlay(false);
       setWinner(null);
     }
 
@@ -78,8 +69,6 @@ function App() {
       newState.isPlay = true;
       return { ...newState };
     });
-    // setIsDisabled(true);
-    // setIsPlay(true);
     let count = 0;
     onInterval(() => {
       const index = arr[count];
@@ -88,12 +77,10 @@ function App() {
         newState.currentIndex = index;
         return { ...newState };
       });
-      // setCurrentIndex(index);
       count += 1;
     });
   };
   console.log(option);
-  // const { filds: FILD_SIZE, delay } = option.hardMode;
   const { isDisabled, currentIndex, isPlay, buttonName } = mainState;
   return (
     <div className="App">
