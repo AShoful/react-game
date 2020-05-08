@@ -47,12 +47,17 @@ const Navbar = (props) => {
         <Container>
           <Toolbar>
             <Grid container>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <Button color="inherit" component={Link} to="/">
+                  About
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button color="inherit" component={Link} to="/game">
                   Game
                 </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <Button color="inherit" component={Link} to="/winners">
                   Winners
                 </Button>
@@ -63,14 +68,6 @@ const Navbar = (props) => {
       </AppBar>
     </ElevationScroll>
   );
-};
-
-Navbar.propTypes = {
-  authenticated: PropTypes.string
-};
-
-Navbar.defaultProps = {
-  authenticated: 'anonim'
 };
 
 export default Navbar;

@@ -1,19 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { cells } from './functions';
 
-const ControllPanel = ({
-  isDisabled,
-  buttonName,
-  handleCancel,
-  generateRandomIndex,
-  filds
-}) => {
+const ControllPanel = ({ isDisabled, buttonName, handleCancel, start }) => {
   return (
     <div>
       <button
         className="playButton"
-        onClick={() => generateRandomIndex(cells(filds ** 2))}
+        onClick={start}
         type="button"
         disabled={isDisabled}
       >

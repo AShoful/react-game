@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect, useRef } from 'react';
-// import { cells } from './functions';
+import { cells } from './functions';
 
 import FildGame from './FildGame';
 import ControllPanel from './ControllPanel';
@@ -10,7 +10,7 @@ import ControllPanel from './ControllPanel';
 import './GamePanel.css';
 
 function GamePanel() {
-  const filds = 3;
+  const filds = 9;
   const delay = 2000;
 
   const [mainState, setMainState] = useState({
@@ -69,26 +69,16 @@ function GamePanel() {
     setMainState({ ...mainState, isPlay: false, isDisabled: false });
   };
 
+  const start = () => generateRandomIndex(cells(filds ** 2));
+
   const { isDisabled, currentIndex, isPlay, buttonName } = mainState;
   return (
     <div className="App">
-      {/* <button
-        className="playButton"
-        onClick={() => generateRandomIndex(cells(filds ** 2))}
-        type="button"
-        disabled={isDisabled}
-      >
-        {buttonName}
-      </button>
-      <button type="button" onClick={handleCancel}>
-        cancel
-      </button> */}
       <ControllPanel
         isDisabled={isDisabled}
         buttonName={buttonName}
         handleCancel={handleCancel}
-        generateRandomIndex={generateRandomIndex}
-        filds={filds}
+        start={start}
       />
       {winner && <p> Победил {winner} </p>}
       <FildGame
