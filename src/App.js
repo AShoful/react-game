@@ -38,13 +38,12 @@ function App() {
   useEffect(() => {
     if (winner) {
       clearInterval(intervalRef.current);
-      setMainState((mainState) => {
-        const newState = { ...mainState };
-        newState.buttonName = 'Play again';
-        newState.isDisabled = false;
-        newState.isPlay = false;
-        return { ...newState };
-      });
+      setMainState((mainState) => ({
+        ...mainState,
+        buttonName: 'Play again',
+        isDisabled: false,
+        isPlay: false
+      }));
     }
   }, [winner]);
 
@@ -53,41 +52,20 @@ function App() {
       return;
     }
     if (mainState.currentIndex !== -1) {
-      setMainState((mainState) => {
-        const newState = { ...mainState };
-        newState.currentIndex = -1;
-        newState.isPlay = false;
-        return { ...newState };
-      });
+      setMainState({ ...mainState, currentIndex: -1, isPlay: false });
       setWinner(null);
     }
-
-    setMainState((mainState) => {
-      const newState = { ...mainState };
-      newState.isDisabled = true;
-      newState.isPlay = true;
-      return { ...newState };
-    });
+    setMainState({ ...mainState, isPlay: true, isDisabled: true });
     let count = 0;
     onInterval(() => {
-      const index = arr[count];
-      setMainState((mainState) => {
-        const newState = { ...mainState };
-        newState.currentIndex = index;
-        return { ...newState };
-      });
+      setMainState((mainState) => ({ ...mainState, currentIndex: arr[count] }));
       count += 1;
     });
   };
 
   const handlecancel = () => {
     clearInterval(intervalRef.current);
-    setMainState((mainState) => {
-      const newState = { ...mainState };
-      newState.isPlay = false;
-      newState.isDisabled = false;
-      return { ...newState };
-    });
+    setMainState({ ...mainState, isPlay: false, isDisabled: false });
   };
 
   const { isDisabled, currentIndex, isPlay, buttonName } = mainState;
