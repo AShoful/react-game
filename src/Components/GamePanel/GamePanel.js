@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -10,18 +11,18 @@ import ControllPanel from './ControllPanel';
 import './GamePanel.css';
 
 function GamePanel() {
-  const filds = 9;
+  const filds = 4;
   const delay = 2000;
 
   const [mainState, setMainState] = useState({
     buttonName: 'Play',
     isDisabled: false,
     isPlay: false,
-    currentIndex: -1
+    currentIndex: -1,
+    winner: null
   });
 
-  const [winner, setWinner] = useState(null);
-  const [, setOption] = useState(null);
+  // const [, setOption] = useState(null);
 
   const intervalRef = useRef(null);
 
@@ -29,15 +30,29 @@ function GamePanel() {
     intervalRef.current = setInterval(go, delay);
   };
 
-  useEffect(() => {
-    fetch('https://starnavi-frontend-test-task.herokuapp.com/game-settings')
-      .then((res) => res.json())
-      .then((res) => setOption(res))
-      .catch((err) => console.log(err.message));
-  }, []);
+  const generateRandomIndex = (arr) => {
+    if (!Array.isArray(arr)) {
+      return;
+    }
+    if (mainState.currentIndex !== -1) {
+      setMainState({ ...mainState, currentIndex: -1, winner: null });
+    }
+    setMainState({ ...mainState, isDisabled: true });
+    let count = 0;
+    onInterval(() => {
+      setMainState((mainState) => ({ ...mainState, currentIndex: arr[count] }));
+      count += 1;
+    });
+  };
+  // useEffect(() => {
+  //   fetch('https://starnavi-frontend-test-task.herokuapp.com/game-settings')
+  //     .then((res) => res.json())
+  //     .then((res) => setOption(res))
+  //     .catch((err) => console.log(err.message));
+  // }, []);
 
   useEffect(() => {
-    if (winner) {
+    if (mainState.winner) {
       clearInterval(intervalRef.current);
       setMainState((mainState) => ({
         ...mainState,
@@ -46,32 +61,24 @@ function GamePanel() {
         isPlay: false
       }));
     }
-  }, [winner]);
+  }, [mainState.winner]);
 
-  const generateRandomIndex = (arr) => {
-    if (!Array.isArray(arr)) {
-      return;
+  useEffect(() => {
+    if (mainState.isPlay) {
+      generateRandomIndex(cells(filds ** 2));
     }
-    if (mainState.currentIndex !== -1) {
-      setMainState({ ...mainState, currentIndex: -1, isPlay: false });
-      setWinner(null);
-    }
-    setMainState({ ...mainState, isPlay: true, isDisabled: true });
-    let count = 0;
-    onInterval(() => {
-      setMainState((mainState) => ({ ...mainState, currentIndex: arr[count] }));
-      count += 1;
-    });
-  };
+    return () => clearInterval(intervalRef.current);
+  }, [mainState.isPlay]);
 
   const handleCancel = () => {
     clearInterval(intervalRef.current);
     setMainState({ ...mainState, isPlay: false, isDisabled: false });
   };
 
-  const start = () => generateRandomIndex(cells(filds ** 2));
+  const start = () => setMainState({ ...mainState, isPlay: true });
+  const setWinner = (user) => setMainState({ ...mainState, winner: user });
 
-  const { isDisabled, currentIndex, isPlay, buttonName } = mainState;
+  const { isDisabled, currentIndex, isPlay, buttonName, winner } = mainState;
   return (
     <div className="App">
       <ControllPanel

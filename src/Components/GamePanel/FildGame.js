@@ -8,6 +8,7 @@ import './FildGame.css';
 
 function FildGame({ currentIndex, isPlay, setWinner, filds, delay }) {
   const WIDTH_GAME_FILD = 310;
+  const totalFilds = filds ** 2;
   const [randomCeil, setRandomCeil] = useState([]);
 
   const timerRef = useRef(null);
@@ -32,6 +33,7 @@ function FildGame({ currentIndex, isPlay, setWinner, filds, delay }) {
       setRandomCeil([]);
       clearTimeout(timerRef.current);
     }
+    return () => clearTimeout(timerRef.current);
   }, [isPlay]);
 
   useEffect(() => {
@@ -39,14 +41,15 @@ function FildGame({ currentIndex, isPlay, setWinner, filds, delay }) {
     onTimer(() => {
       changeColorCell(currentIndex, 'red');
     });
+    // return () => clearTimeout(timerRef.current);
   }, [currentIndex]);
 
   useEffect(() => {
-    if (checkWinner('green') > filds ** 2 / 2) {
+    if (checkWinner('green') > totalFilds / 2) {
       setWinner('player');
       clearTimeout(timerRef.current);
     }
-    if (checkWinner('red') > filds ** 2 / 2) {
+    if (checkWinner('red') > totalFilds / 2) {
       setWinner('computer');
       clearTimeout(timerRef.current);
     }
@@ -63,7 +66,7 @@ function FildGame({ currentIndex, isPlay, setWinner, filds, delay }) {
   const sizeCell = (WIDTH_GAME_FILD - filds * 2) / filds;
   return (
     <div className="field" style={{ width: WIDTH_GAME_FILD }}>
-      {Array(filds ** 2)
+      {Array(totalFilds)
         .fill('')
         .map((item, index) => (
           <div
