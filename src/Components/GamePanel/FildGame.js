@@ -69,7 +69,7 @@ function FildGame({
     clearTimeout(timerRef.current);
     changeColorCell(index, 'green');
   };
-  console.log(field, delay);
+
   const sizeCell = (WIDTH_GAME_FILD - field * 2) / field;
   return (
     <div className="field" style={{ width: WIDTH_GAME_FILD }}>

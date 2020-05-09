@@ -35,7 +35,7 @@ const ControllPanel = ({
   const classes = useStyles();
   const [valueSelect, setValueSelect] = useState('');
   const [valueInput, setValueInput] = useState('');
-  console.log(valueSelect);
+
   return (
     <FormControl className={classes.formControl}>
       <InputLabel id="select-label">Check game's level</InputLabel>
