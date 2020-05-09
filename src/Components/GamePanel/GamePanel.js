@@ -11,21 +11,23 @@ import ControllPanel from './ControllPanel';
 import './GamePanel.css';
 
 function GamePanel() {
-  const filds = 4;
-  const delay = 2000;
+  // const field = 4;
+  // const delay = 2000;
 
   const [mainState, setMainState] = useState({
     buttonName: 'Play',
     isDisabled: false,
     isPlay: false,
     currentIndex: -1,
-    winner: null
+    winner: null,
+    currentOption: { field: 4, delay: 2000 },
+    playerName: 'player'
   });
 
-  // const [, setOption] = useState(null);
+  const [option, setOption] = useState(null);
 
   const intervalRef = useRef(null);
-
+  const { field, delay } = mainState.currentOption;
   const onInterval = (go) => {
     intervalRef.current = setInterval(go, delay);
   };
@@ -37,19 +39,19 @@ function GamePanel() {
     if (mainState.currentIndex !== -1) {
       setMainState({ ...mainState, currentIndex: -1, winner: null });
     }
-    setMainState({ ...mainState, isDisabled: true });
+    setMainState({ ...mainState, isDisabled: true, winner: null });
     let count = 0;
     onInterval(() => {
       setMainState((mainState) => ({ ...mainState, currentIndex: arr[count] }));
       count += 1;
     });
   };
-  // useEffect(() => {
-  //   fetch('https://starnavi-frontend-test-task.herokuapp.com/game-settings')
-  //     .then((res) => res.json())
-  //     .then((res) => setOption(res))
-  //     .catch((err) => console.log(err.message));
-  // }, []);
+  useEffect(() => {
+    fetch('https://starnavi-frontend-test-task.herokuapp.com/game-settings')
+      .then((res) => res.json())
+      .then((res) => setOption(res))
+      .catch((err) => console.log(err.message));
+  }, []);
 
   useEffect(() => {
     if (mainState.winner) {
@@ -65,7 +67,7 @@ function GamePanel() {
 
   useEffect(() => {
     if (mainState.isPlay) {
-      generateRandomIndex(cells(filds ** 2));
+      generateRandomIndex(cells(field ** 2));
     }
     return () => clearInterval(intervalRef.current);
   }, [mainState.isPlay]);
@@ -75,10 +77,23 @@ function GamePanel() {
     setMainState({ ...mainState, isPlay: false, isDisabled: false });
   };
 
-  const start = () => setMainState({ ...mainState, isPlay: true });
+  const start = (obj, str) =>
+    setMainState({
+      ...mainState,
+      isPlay: true,
+      currentOption: obj,
+      playerName: str
+    });
   const setWinner = (user) => setMainState({ ...mainState, winner: user });
 
-  const { isDisabled, currentIndex, isPlay, buttonName, winner } = mainState;
+  const {
+    isDisabled,
+    currentIndex,
+    isPlay,
+    buttonName,
+    winner,
+    playerName
+  } = mainState;
   return (
     <div className="App">
       <ControllPanel
@@ -86,13 +101,15 @@ function GamePanel() {
         buttonName={buttonName}
         handleCancel={handleCancel}
         start={start}
+        option={option}
       />
       {winner && <p> Победил {winner} </p>}
       <FildGame
         currentIndex={currentIndex}
         isPlay={isPlay}
         setWinner={setWinner}
-        filds={filds}
+        playerName={playerName}
+        field={field}
         delay={delay}
       />
     </div>
