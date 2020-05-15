@@ -72,7 +72,12 @@ function FildGame({
 
   const sizeCell = (WIDTH_GAME_FILD - field * 2) / field;
   return (
-    <div className="field" style={{ width: WIDTH_GAME_FILD }}>
+    <div
+      className="field"
+      style={{ width: WIDTH_GAME_FILD }}
+      onClick={(e) => action(+e.target.id)}
+      role="button"
+    >
       {Array(totalFilds)
         .fill('')
         .map((item, index) => (
@@ -80,8 +85,7 @@ function FildGame({
             className={randomCeil[index] ? `ceil ${randomCeil[index]}` : 'ceil'}
             style={{ width: sizeCell, height: sizeCell }}
             key={`${index + Date.now()}`}
-            onClick={() => action(index)}
-            role="button"
+            id={index}
           />
         ))}
     </div>
