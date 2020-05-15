@@ -30,11 +30,25 @@ const ControllPanel = ({
   isDisabled,
   buttonName,
   handleCancel,
-  start
+  start,
+  setMainState,
+  mainState
 }) => {
   const classes = useStyles();
   const [valueSelect, setValueSelect] = useState('');
   const [valueInput, setValueInput] = useState('');
+
+  const handleSelect = (e) => {
+    const obj = e.target.value;
+    setValueSelect(obj);
+    setMainState({ ...mainState, currentOption: obj });
+  };
+
+  const handleInput = (e) => {
+    const str = e.target.value;
+    setValueInput(str);
+    setMainState({ ...mainState, playerName: str });
+  };
 
   return (
     <FormControl className={classes.formControl}>
@@ -44,7 +58,8 @@ const ControllPanel = ({
         labelId="select-label"
         id="select-label"
         value={valueSelect}
-        onChange={(e) => setValueSelect(e.target.value)}
+        onChange={(e) => handleSelect(e)}
+        // onChange={(e) => setValueSelect(e.target.value)}
       >
         <MenuItem value="Check game's level" />
         {option &&
@@ -58,14 +73,15 @@ const ControllPanel = ({
         id="standard-basic"
         label="Enter your name"
         value={valueInput}
-        onChange={(e) => setValueInput(e.target.value)}
+        // onChange={(e) => setValueInput(e.target.value)}
+        onChange={(e) => handleInput(e)}
       />
       <Button
         className={classes.button}
         variant="contained"
         color="primary"
-        onClick={() => start(valueSelect, valueInput)}
-        disabled={isDisabled}
+        onClick={() => start()}
+        disabled={isDisabled || !valueInput || !valueSelect}
       >
         {buttonName}
       </Button>

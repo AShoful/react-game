@@ -20,7 +20,7 @@ function GamePanel() {
     isPlay: false,
     currentIndex: -1,
     winner: null,
-    currentOption: { field: 4, delay: 2000 },
+    currentOption: { field: 5, delay: 2000 },
     playerName: 'player'
   });
 
@@ -77,12 +77,12 @@ function GamePanel() {
     setMainState({ ...mainState, isPlay: false, isDisabled: false });
   };
 
-  const start = (obj, str) =>
+  const start = () =>
     setMainState({
       ...mainState,
-      isPlay: true,
-      currentOption: obj,
-      playerName: str
+      isPlay: true
+      // currentOption: obj,
+      // playerName: str
     });
   const setWinner = (user) => setMainState({ ...mainState, winner: user });
 
@@ -102,8 +102,10 @@ function GamePanel() {
         handleCancel={handleCancel}
         start={start}
         option={option}
+        mainState={mainState}
+        setMainState={setMainState}
       />
-      {winner && <p> Победил {winner} </p>}
+      {winner && <p className="winner"> Победил {winner} </p>}
       <FildGame
         currentIndex={currentIndex}
         isPlay={isPlay}
