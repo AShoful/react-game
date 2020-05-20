@@ -5,6 +5,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import gameApi from '../../api';
 
 const useStyles = makeStyles((theme) => ({
   field: {
@@ -41,6 +42,7 @@ function FildGame({
   const green = 'green';
   const WIDTH_GAME_FILD = 310;
   const totalFilds = field ** 2;
+  const sizeCell = (WIDTH_GAME_FILD - field * 2) / field;
   const [randomCeil, setRandomCeil] = useState([]);
 
   const timerRef = useRef(null);
@@ -79,12 +81,14 @@ function FildGame({
     if (checkWinner(green) > totalFilds / 2) {
       setWinner(playerName);
       clearTimeout(timerRef.current);
+      gameApi.post({ date: Date.now(), winner: playerName });
     }
     if (checkWinner(red) > totalFilds / 2) {
       setWinner('computer');
       clearTimeout(timerRef.current);
+      gameApi.post({ date: Date.now(), winner: 'computer' });
     }
-  }, [field, randomCeil, setWinner]);
+  }, [randomCeil]);
 
   const action = (index) => {
     if (!(currentIndex === index)) {
@@ -94,7 +98,6 @@ function FildGame({
     changeColorCell(index, green);
   };
 
-  const sizeCell = (WIDTH_GAME_FILD - field * 2) / field;
   return (
     <div
       className={classes.field}

@@ -6,6 +6,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Alert from '@material-ui/lab/Alert';
+import gameApi from '../../api';
 
 import { cells } from './functions';
 
@@ -34,13 +35,14 @@ function GamePanel() {
     currentOption: { field: 5, delay: 2000 },
     playerName: 'player'
   });
-  const classes = useStyles();
   const [option, setOption] = useState(null);
   const intervalRef = useRef(null);
   const { field, delay } = mainState.currentOption;
   const onInterval = (go) => {
     intervalRef.current = setInterval(go, delay);
   };
+
+  const classes = useStyles();
 
   const generateRandomIndex = (arr) => {
     if (!Array.isArray(arr)) {
@@ -56,10 +58,11 @@ function GamePanel() {
       count += 1;
     });
   };
+
   useEffect(() => {
-    fetch('https://starnavi-frontend-test-task.herokuapp.com/game-settings')
-      .then((res) => res.json())
-      .then((res) => setOption(res))
+    gameApi
+      .get()
+      .then((res) => setOption(res.data))
       .catch((err) => console.log(err.message));
   }, []);
 
@@ -92,6 +95,7 @@ function GamePanel() {
       ...mainState,
       isPlay: true
     });
+
   const setWinner = (user) => setMainState({ ...mainState, winner: user });
 
   const {
@@ -103,7 +107,7 @@ function GamePanel() {
     playerName
   } = mainState;
   return (
-    <div className={classes.App}>
+    <div>
       <ControllPanel
         isDisabled={isDisabled}
         buttonName={buttonName}
