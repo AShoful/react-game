@@ -48,17 +48,22 @@ const Navbar = (props) => {
           <Toolbar>
             <Grid container>
               <Grid item xs={4}>
-                <Button color="inherit" component={Link} to="/">
+                <Button fullWidth color="inherit" component={Link} to="/">
                   About
                 </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button color="inherit" component={Link} to="/game">
+                <Button fullWidth color="inherit" component={Link} to="/game">
                   Game
                 </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button color="inherit" component={Link} to="/winners">
+                <Button
+                  fullWidth
+                  color="inherit"
+                  component={Link}
+                  to="/winners"
+                >
                   Winners
                 </Button>
               </Grid>

@@ -11,12 +11,10 @@ const theme = createMuiTheme(themeObject);
 
 function App() {
   return (
-    <div className="App">
-      <MuiThemeProvider theme={theme}>
-        <Navbar />
-        <Router />
-      </MuiThemeProvider>
-    </div>
+    <MuiThemeProvider theme={theme}>
+      <Navbar />
+      <Router />
+    </MuiThemeProvider>
   );
 }
 

@@ -3,17 +3,28 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect, useRef } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Alert from '@material-ui/lab/Alert';
+
 import { cells } from './functions';
 
 import FildGame from './FildGame';
 import ControllPanel from './ControllPanel';
 
-import './GamePanel.css';
+const useStyles = makeStyles((theme) => ({
+  winner: {
+    width: '100%',
+    position: 'absolute',
+    top: '80%',
+    zIndex: 10,
+    '& > * + *': {
+      marginTop: theme.spacing(2)
+    }
+  }
+}));
 
 function GamePanel() {
-  // const field = 4;
-  // const delay = 2000;
-
   const [mainState, setMainState] = useState({
     buttonName: 'Play',
     isDisabled: false,
@@ -23,9 +34,8 @@ function GamePanel() {
     currentOption: { field: 5, delay: 2000 },
     playerName: 'player'
   });
-
+  const classes = useStyles();
   const [option, setOption] = useState(null);
-
   const intervalRef = useRef(null);
   const { field, delay } = mainState.currentOption;
   const onInterval = (go) => {
@@ -81,8 +91,6 @@ function GamePanel() {
     setMainState({
       ...mainState,
       isPlay: true
-      // currentOption: obj,
-      // playerName: str
     });
   const setWinner = (user) => setMainState({ ...mainState, winner: user });
 
@@ -95,7 +103,7 @@ function GamePanel() {
     playerName
   } = mainState;
   return (
-    <div className="App">
+    <div className={classes.App}>
       <ControllPanel
         isDisabled={isDisabled}
         buttonName={buttonName}
@@ -105,7 +113,17 @@ function GamePanel() {
         mainState={mainState}
         setMainState={setMainState}
       />
-      {winner && <p className="winner"> Победил {winner} </p>}
+      {winner && (
+        <Container className={classes.winner}>
+          <Alert
+            variant="filled"
+            severity="success"
+            onClose={() => setWinner(null)}
+          >
+            Победил {winner}
+          </Alert>
+        </Container>
+      )}
       <FildGame
         currentIndex={currentIndex}
         isPlay={isPlay}

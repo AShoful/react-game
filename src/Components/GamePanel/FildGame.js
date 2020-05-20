@@ -4,7 +4,28 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useEffect, useRef } from 'react';
-import './FildGame.css';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  field: {
+    margin: '0 auto',
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    boxSizing: 'border-box',
+    cursor: 'copy',
+    marginBottom: theme.spacing(2)
+  },
+  green: {
+    backgroundColor: theme.palette.success.dark
+  },
+  blue: {
+    backgroundColor: theme.palette.primary.main
+  },
+  red: {
+    backgroundColor: theme.palette.secondary.main
+  }
+}));
 
 function FildGame({
   currentIndex,
@@ -14,6 +35,10 @@ function FildGame({
   delay,
   playerName
 }) {
+  const classes = useStyles();
+  const red = 'red';
+  const blue = 'blue';
+  const green = 'green';
   const WIDTH_GAME_FILD = 310;
   const totalFilds = field ** 2;
   const [randomCeil, setRandomCeil] = useState([]);
@@ -44,19 +69,18 @@ function FildGame({
   }, [isPlay]);
 
   useEffect(() => {
-    changeColorCell(currentIndex, 'blue');
+    changeColorCell(currentIndex, blue);
     onTimer(() => {
-      changeColorCell(currentIndex, 'red');
+      changeColorCell(currentIndex, red);
     });
-    // return () => clearTimeout(timerRef.current);
   }, [currentIndex]);
 
   useEffect(() => {
-    if (checkWinner('green') > totalFilds / 2) {
+    if (checkWinner(green) > totalFilds / 2) {
       setWinner(playerName);
       clearTimeout(timerRef.current);
     }
-    if (checkWinner('red') > totalFilds / 2) {
+    if (checkWinner(red) > totalFilds / 2) {
       setWinner('computer');
       clearTimeout(timerRef.current);
     }
@@ -67,23 +91,27 @@ function FildGame({
       return;
     }
     clearTimeout(timerRef.current);
-    changeColorCell(index, 'green');
+    changeColorCell(index, green);
   };
 
   const sizeCell = (WIDTH_GAME_FILD - field * 2) / field;
   return (
     <div
-      className="field"
+      className={classes.field}
       style={{ width: WIDTH_GAME_FILD }}
       onClick={(e) => action(+e.target.id)}
       role="button"
     >
       {Array(totalFilds)
         .fill('')
-        .map((item, index) => (
+        .map((_, index) => (
           <div
-            className={randomCeil[index] ? `ceil ${randomCeil[index]}` : 'ceil'}
-            style={{ width: sizeCell, height: sizeCell }}
+            className={randomCeil[index] ? classes[randomCeil[index]] : ''}
+            style={{
+              width: sizeCell,
+              height: sizeCell,
+              border: '1px solid grey'
+            }}
             key={`${index + Date.now()}`}
             id={index}
           />

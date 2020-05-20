@@ -1,27 +1,21 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import {
+  MenuItem,
+  Grid,
+  Container,
+  InputLabel,
+  FormControl,
+  Select,
+  TextField,
+  Button
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: theme.spacing(2)
-  },
-  select: {
-    marginTop: theme.spacing(2),
-    minWidth: 220
-  },
-  botton: {
-    display: 'inline-block',
-    minWidth: 120
+  controllPanel: {
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2)
   }
 }));
 
@@ -51,49 +45,59 @@ const ControllPanel = ({
   };
 
   return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id="select-label">Check game's level</InputLabel>
-      <Select
-        className={classes.select}
-        labelId="select-label"
-        id="select-label"
-        value={valueSelect}
-        onChange={(e) => handleSelect(e)}
-        // onChange={(e) => setValueSelect(e.target.value)}
-      >
-        <MenuItem value="Check game's level" />
-        {option &&
-          Object.entries(option).map((item) => (
-            <MenuItem value={item[1]} key={item[0]}>
-              {item[0]}
-            </MenuItem>
-          ))}
-      </Select>
-      <TextField
-        id="standard-basic"
-        label="Enter your name"
-        value={valueInput}
-        // onChange={(e) => setValueInput(e.target.value)}
-        onChange={(e) => handleInput(e)}
-      />
-      <Button
-        className={classes.button}
-        variant="contained"
-        color="primary"
-        onClick={() => start()}
-        disabled={isDisabled || !valueInput || !valueSelect}
-      >
-        {buttonName}
-      </Button>
-      <Button
-        className={classes.button}
-        variant="contained"
-        color="secondary"
-        onClick={handleCancel}
-      >
-        Cansel
-      </Button>
-    </FormControl>
+    <Container className={classes.controllPanel}>
+      <Grid container justify="space-between" spacing={2}>
+        <Grid item lg={3} xs={6}>
+          <FormControl fullWidth>
+            <InputLabel id="select-label">Check level</InputLabel>
+            <Select
+              labelId="select-label"
+              id="select-label"
+              value={valueSelect}
+              onChange={(e) => handleSelect(e)}
+            >
+              <MenuItem value="Check game's level" />
+              {option &&
+                Object.entries(option).map((item) => (
+                  <MenuItem value={item[1]} key={item[0]}>
+                    {item[0]}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item lg={3} xs={6}>
+          <TextField
+            fullWidth
+            id="standard-basic"
+            label="Your name"
+            value={valueInput}
+            onChange={(e) => handleInput(e)}
+          />
+        </Grid>
+        <Grid item lg={3} xs={6}>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={() => start()}
+            disabled={isDisabled || !valueInput || !valueSelect}
+          >
+            {buttonName}
+          </Button>
+        </Grid>
+        <Grid item lg={3} xs={6}>
+          <Button
+            fullWidth
+            variant="contained"
+            color="secondary"
+            onClick={handleCancel}
+          >
+            Cansel
+          </Button>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
