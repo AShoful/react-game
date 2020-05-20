@@ -81,12 +81,18 @@ function FildGame({
     if (checkWinner(green) > totalFilds / 2) {
       setWinner(playerName);
       clearTimeout(timerRef.current);
-      gameApi.post({ date: Date.now(), winner: playerName });
+      gameApi
+        .post({ date: Date.now(), winner: playerName })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
     }
     if (checkWinner(red) > totalFilds / 2) {
       setWinner('computer');
       clearTimeout(timerRef.current);
-      gameApi.post({ date: Date.now(), winner: 'computer' });
+      gameApi
+        .post({ date: Date.now(), winner: 'computer' })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
     }
   }, [randomCeil]);
 
