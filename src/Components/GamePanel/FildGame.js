@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -106,6 +104,7 @@ function FildGame({
   return (
     <div
       className={classes.field}
+      aria-hidden
       style={{ width: WIDTH_GAME_FILD }}
       onClick={(e) => action(+e.target.id)}
       role="button"
