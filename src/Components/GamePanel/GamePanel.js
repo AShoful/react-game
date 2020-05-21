@@ -14,10 +14,14 @@ import FildGame from './FildGame';
 import ControllPanel from './ControllPanel';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    position: 'relative',
+    margin: 0,
+    padding: 0
+  },
   winner: {
-    width: '100%',
+    marginTop: '10%',
     position: 'absolute',
-    top: '80%',
     zIndex: 10,
     '& > * + *': {
       marginTop: theme.spacing(2)
@@ -107,7 +111,7 @@ function GamePanel() {
     playerName
   } = mainState;
   return (
-    <div>
+    <Container maxWidth="md" className={classes.root}>
       <ControllPanel
         isDisabled={isDisabled}
         buttonName={buttonName}
@@ -136,7 +140,7 @@ function GamePanel() {
         field={field}
         delay={delay}
       />
-    </div>
+    </Container>
   );
 }
 

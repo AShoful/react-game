@@ -38,7 +38,7 @@ const WinnersList = () => {
                   primary={`Winner: ${item[1].winner}`}
                   secondary={`Date game: ${new Date(
                     item[1].date
-                  ).toLocaleDateString()}`}
+                  ).toLocaleString()}`}
                 />
               </ListItem>
               <Divider />

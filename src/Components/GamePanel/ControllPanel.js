@@ -9,7 +9,8 @@ import {
   FormControl,
   Select,
   TextField,
-  Button
+  Button,
+  ButtonGroup
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +46,7 @@ const ControllPanel = ({
   };
 
   return (
-    <Container className={classes.controllPanel}>
+    <Container className={classes.controllPanel} maxWidth="md">
       <Grid container justify="space-between" spacing={2}>
         <Grid item lg={3} xs={6}>
           <FormControl fullWidth>
@@ -75,26 +76,25 @@ const ControllPanel = ({
             onChange={(e) => handleInput(e)}
           />
         </Grid>
-        <Grid item lg={3} xs={6}>
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={() => start()}
-            disabled={isDisabled || !valueInput || !valueSelect}
-          >
-            {buttonName}
-          </Button>
-        </Grid>
-        <Grid item lg={3} xs={6}>
-          <Button
-            fullWidth
-            variant="contained"
-            color="secondary"
-            onClick={handleCancel}
-          >
-            Cansel
-          </Button>
+        <Grid item lg={6} xs={12}>
+          <ButtonGroup fullWidth>
+            {/* <Grid container> */}
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => start()}
+              disabled={isDisabled || !valueInput || !valueSelect}
+            >
+              {buttonName}
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleCancel}
+            >
+              Cansel
+            </Button>
+          </ButtonGroup>
         </Grid>
       </Grid>
     </Container>

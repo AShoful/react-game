@@ -44,7 +44,7 @@ const Navbar = (props) => {
   return (
     <ElevationScroll {...props} className={classes.root}>
       <AppBar position="sticky">
-        <Container>
+        <Container maxWidth="md">
           <Toolbar>
             <Grid container>
               <Grid item xs={4}>

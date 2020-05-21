@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     boxSizing: 'border-box',
     cursor: 'copy',
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
+    border: '1.5px solid grey'
   },
   green: {
     backgroundColor: theme.palette.success.dark
@@ -42,7 +43,7 @@ function FildGame({
   const green = 'green';
   const WIDTH_GAME_FILD = 310;
   const totalFilds = field ** 2;
-  const sizeCell = (WIDTH_GAME_FILD - field * 2) / field;
+  const sizeCell = (WIDTH_GAME_FILD - (field + 1) * 3) / field;
   const [randomCeil, setRandomCeil] = useState([]);
 
   const timerRef = useRef(null);
@@ -117,7 +118,7 @@ function FildGame({
             style={{
               width: sizeCell,
               height: sizeCell,
-              border: '1px solid grey'
+              border: '1.5px solid grey'
             }}
             key={`${index + Date.now()}`}
             id={index}
