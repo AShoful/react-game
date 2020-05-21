@@ -1,5 +1,5 @@
 {
-  "name": "react-hook",
+  "name": "react-game",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,6 +9,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "gh-pages": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
@@ -50,8 +51,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AShoful/reactHook.git"
+    "url": "git+https://github.com/AShoful/react-game.git"
   },
+  "homepage": "http://ashoful.github.io/react-game",
   "browserslist": {
     "production": [
       ">0.2%",
