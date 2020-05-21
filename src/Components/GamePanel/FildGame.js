@@ -83,7 +83,6 @@ function FildGame({
       clearTimeout(timerRef.current);
       gameApi
         .post({ date: Date.now(), winner: playerName })
-        .then((res) => console.log(res))
         .catch((err) => console.log(err));
     }
     if (checkWinner(red) > totalFilds / 2) {
@@ -91,7 +90,6 @@ function FildGame({
       clearTimeout(timerRef.current);
       gameApi
         .post({ date: Date.now(), winner: 'computer' })
-        .then((res) => console.log(res))
         .catch((err) => console.log(err));
     }
   }, [randomCeil]);
