@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import gameApi from '../../api';
 
@@ -127,5 +127,23 @@ function FildGame({
     </div>
   );
 }
+
+FildGame.propTypes = {
+  currentIndex: PropTypes.number,
+  isPlay: PropTypes.bool,
+  setWinner: PropTypes.func,
+  field: PropTypes.number,
+  delay: PropTypes.number,
+  playerName: PropTypes.string
+};
+
+FildGame.defaultProps = {
+  currentIndex: 0,
+  isPlay: false,
+  setWinner: () => {},
+  field: 3,
+  delay: 2000,
+  playerName: 'player'
+};
 
 export default FildGame;

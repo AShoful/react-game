@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   MenuItem,
@@ -99,6 +99,48 @@ const ControllPanel = ({
       </Grid>
     </Container>
   );
+};
+
+ControllPanel.propTypes = {
+  option: PropTypes.shape({
+    field: PropTypes.number,
+    delay: PropTypes.number
+  }),
+  isDisabled: PropTypes.bool,
+  buttonName: PropTypes.string,
+  handleCancel: PropTypes.func,
+  start: PropTypes.func,
+  setMainState: PropTypes.func,
+  mainState: PropTypes.shape({
+    buttonName: PropTypes.string,
+    isDisabled: PropTypes.bool,
+    isPlay: PropTypes.bool,
+    currentIndex: PropTypes.number,
+    winner: PropTypes.string,
+    currentOption: PropTypes.object,
+    playerName: PropTypes.string
+  })
+};
+
+ControllPanel.defaultProps = {
+  option: PropTypes.shape({
+    field: 3,
+    delay: 2000
+  }),
+  isDisabled: false,
+  buttonName: 'Play',
+  handleCancel: () => {},
+  start: () => {},
+  setMainState: () => {},
+  mainState: PropTypes.shape({
+    buttonName: 'Play',
+    isDisabled: false,
+    isPlay: false,
+    currentIndex: -1,
+    winner: null,
+    currentOption: { field: 5, delay: 2000 },
+    playerName: 'player'
+  })
 };
 
 export default ControllPanel;
