@@ -22,8 +22,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ControllPanel = ({
   option,
-  isDisabled,
-  buttonName,
   handleCancel,
   start,
   setMainState,
@@ -44,7 +42,7 @@ const ControllPanel = ({
     setValueInput(str);
     setMainState({ ...mainState, playerName: str });
   };
-
+  const { isDisabled, buttonName } = mainState;
   return (
     <Container className={classes.controllPanel} maxWidth="md">
       <Grid container justify="space-between" spacing={2}>
@@ -106,8 +104,6 @@ ControllPanel.propTypes = {
     field: PropTypes.number,
     delay: PropTypes.number
   }),
-  isDisabled: PropTypes.bool,
-  buttonName: PropTypes.string,
   handleCancel: PropTypes.func,
   start: PropTypes.func,
   setMainState: PropTypes.func,
@@ -127,8 +123,6 @@ ControllPanel.defaultProps = {
     field: 3,
     delay: 2000
   }),
-  isDisabled: false,
-  buttonName: 'Play',
   handleCancel: () => {},
   start: () => {},
   setMainState: () => {},
