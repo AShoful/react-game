@@ -29,19 +29,21 @@ const WinnersList = () => {
   return (
     <List className={classes.root}>
       {winnersList &&
-        Object.entries(winnersList).map((item) => (
-          <>
-            <ListItem alignItems="center" key={item[0]}>
-              <ListItemText
-                primary={`Winner ${item[1].winner}`}
-                secondary={`Date game ${new Date(
-                  item[1].date
-                ).toLocaleDateString()}`}
-              />
-            </ListItem>
-            <Divider variant="inset" component="li" />
-          </>
-        ))}
+        Object.entries(winnersList)
+          .sort((a, b) => b[1].date - a[1].date)
+          .map((item) => (
+            <React.Fragment key={item[0]}>
+              <ListItem alignItems="center">
+                <ListItemText
+                  primary={`Winner: ${item[1].winner}`}
+                  secondary={`Date game: ${new Date(
+                    item[1].date
+                  ).toLocaleDateString()}`}
+                />
+              </ListItem>
+              <Divider />
+            </React.Fragment>
+          ))}
     </List>
   );
 };
