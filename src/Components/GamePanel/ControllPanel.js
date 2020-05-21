@@ -76,7 +76,6 @@ const ControllPanel = ({
         </Grid>
         <Grid item lg={6} xs={12}>
           <ButtonGroup fullWidth>
-            {/* <Grid container> */}
             <Button
               variant="contained"
               color="primary"
@@ -89,6 +88,7 @@ const ControllPanel = ({
               variant="contained"
               color="secondary"
               onClick={handleCancel}
+              disabled={!isDisabled}
             >
               Cansel
             </Button>

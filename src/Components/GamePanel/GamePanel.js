@@ -13,7 +13,6 @@ import ControllPanel from './ControllPanel';
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
-    margin: 0,
     padding: 0
   },
   winner: {
